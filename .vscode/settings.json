@@ -1,0 +1,19 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/media/Data/catkin_ws/devel/lib/python2.7/dist-packages",
+        "/opt/ros/melodic/lib/python2.7/dist-packages"
+    ],
+    "cmake.configureOnOpen": true,
+    "files.associations": {
+        "iostream": "cpp"
+    },
+    "cmake.sourceDirectory": "${workspaceFolder}/src",
+
+    // RoBorregos C++ Style.
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 100}",
+
+    // RoBorregos C++ Linter.
+    "cpplint.cpplintPath": "/home/tomas/.local/lib/python2.7/site-packages/cpplint.py",
+    "cpplint.lineLength" : 100,
+    "cpplint.filters" : ["-legal"]
+}
