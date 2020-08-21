@@ -23,6 +23,7 @@ find_package(catkin REQUIRED COMPONENTS
  add_service_files(
    FILES 
    AddTwoInts.srv
+   RectangleArea.srv
    )
 
 ## Generate actions in the 'action' folder
@@ -91,6 +92,14 @@ target_link_libraries (iot_sensor_publisher_node ${catkin_LIBRARIES})
 #iot_sensor_subscriber
 add_executable(iot_sensor_subscriber_node src/topic01_basics/iot_sensor/iot_sensor_subscriber.cpp)
 target_link_libraries (iot_sensor_subscriber_node ${catkin_LIBRARIES})
+
+#rectangle_area_client
+add_executable(rectangle_area_client_node src/assigment_2/rectangle_area_client.cpp)
+target_link_libraries (rectangle_area_client_node ${catkin_LIBRARIES})
+
+#rectangle_area_server
+add_executable(rectangle_area_server_node src/assigment_2/rectangle_area_server.cpp)
+target_link_libraries (rectangle_area_server_node ${catkin_LIBRARIES})
 
 
 #robot cleaner
