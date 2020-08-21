@@ -1,13 +1,7 @@
-/*
- * Author: Anis Koubaa for Gaitech EDU
- * Year: 2016
- *
- */
 #include <sstream>
 
 #include "ros/ros.h"
 #include "ros_essentials_cpp/IoTSensor.h"
-#include "std_msgs/String.h"
 
 // Topic messages callback
 void chatterCallback(const ros_essentials_cpp::IoTSensor::ConstPtr& msg) {
@@ -20,7 +14,7 @@ void chatterCallback(const ros_essentials_cpp::IoTSensor::ConstPtr& msg) {
 int main(int argc, char** argv) {
     int a = 1;
     // Initiate a new ROS node named "listener"
-    ros::init(argc, argv, "listener_node");
+    ros::init(argc, argv, "iot_sensor_listener_node");
     // create a node handle: it is reference assigned to a new node
     ros::NodeHandle node;
 

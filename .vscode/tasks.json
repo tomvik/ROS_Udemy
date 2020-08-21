@@ -6,7 +6,8 @@
             "type": "shell",
             "command": "catkin_make",
             "args": [
-                "-j4",
+                "-j8",
+                "-l8",
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DCMAKE_EXPORT_COMPILE_COMMANDS=1",
                 "-DCMAKE_CXX_STANDARD=14"
