@@ -43,6 +43,10 @@ geometry_msgs::Twist getTwist(const geometry_msgs::Vector3& linear_vector,
     return twist;
 }
 
+// Publishes a Twist message to the sent publisher, and does that until the distance
+// traveled has been reached. The checking frequency can be changed, and its value is in Hz.
+// For the moment it is calculated as Distance = speed * time.
+// Some good later work would be to add odometry.
 void moveStraight(const ros::Publisher& velocity_publisher, const double speed,
                   const double desired_distance, const bool forward,
                   const int loop_frequency = 100) {
@@ -56,8 +60,8 @@ void moveStraight(const ros::Publisher& velocity_publisher, const double speed,
         velocity_publisher.publish(twist_msg);
         loop_rate.sleep();
 
-        double current_time = ros::Time::now().toSec();
-        // Distance = speed * time
+        const double current_time = ros::Time::now().toSec();
+
         traveled_distance += speed * (current_time - initial_time);
         initial_time = current_time;
         // ROS_INFO("[DISTANCE] distance: %f", traveled_distance);
