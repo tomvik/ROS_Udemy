@@ -136,8 +136,13 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/rumba_turtle_node.cpp)
 
 #rumba_turtle_node
-add_executable(rumba_turtle_node src/rumba_turtle/rumba_turtle.cpp)
-target_link_libraries (rumba_turtle_node ${catkin_LIBRARIES})
+add_executable(${PROJECT_NAME}_node
+    src/${PROJECT_NAME}/${PROJECT_NAME}_node.cpp
+    src/${PROJECT_NAME}/geometry.cpp
+    src/${PROJECT_NAME}/movement.cpp)
+
+target_link_libraries (${PROJECT_NAME}_node
+    ${catkin_LIBRARIES})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
