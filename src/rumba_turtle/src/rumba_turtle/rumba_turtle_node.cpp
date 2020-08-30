@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
         movement::moveStraight(pub, 1, 3, direction);
         direction = !direction;
 
-        movement::rotate(pub, 0.5, movement::degrees2radians(90), true);
+        movement::rotate(pub, 1, movement::degrees2radians(90), true);
 
         ros::spinOnce();
         loop_rate.sleep();

@@ -31,7 +31,7 @@ void moveStraight(const ros::Publisher& velocity_publisher, const double speed,
 
         ros::spinOnce();
         // ROS_INFO("[DISTANCE] distance: %f", traveled_distance);
-    } while (desired_distance >= traveled_distance);
+    } while (traveled_distance < desired_distance);
 }
 
 void rotate(const ros::Publisher& velocity_publisher, const double angular_speed,
@@ -53,7 +53,7 @@ void rotate(const ros::Publisher& velocity_publisher, const double angular_speed
 
         ros::spinOnce();
         // ROS_INFO("[ROTATION] rotation: %f", traveled_angle);
-    } while (desired_relative_angle >= traveled_angle);
+    } while (traveled_angle < desired_relative_angle);
 }
 
 };  // namespace movement
