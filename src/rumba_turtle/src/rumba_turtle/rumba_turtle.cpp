@@ -5,11 +5,10 @@
  */
 #include <sstream>
 
-#include "geometry_msgs/Twist.h"
-#include "geometry_msgs/Vector3.h"
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "turtlesim/Pose.h"
+#include "../../include/rumba_turtle/geometry.h"
 
 ros::Publisher velocity_publisher;
 ros::Subscriber pose_subscriber;
@@ -27,22 +26,6 @@ const char* const kPublisherTopic = "/turtle1/cmd_vel";
 const int kQueueSize = 1000;
 const int kMoveRateFrequency = 100;
 
-geometry_msgs::Vector3 getVector3(const double x, const double y, const double z) {
-    geometry_msgs::Vector3 vector3;
-    vector3.x = x;
-    vector3.y = y;
-    vector3.z = z;
-    return vector3;
-}
-
-geometry_msgs::Twist getTwist(const geometry_msgs::Vector3& linear_vector,
-                              const geometry_msgs::Vector3& angular_vector) {
-    geometry_msgs::Twist twist;
-    twist.linear = linear_vector;
-    twist.angular = angular_vector;
-    return twist;
-}
-
 // Publishes a Twist message to the sent publisher, and does that until the distance
 // traveled has been reached. The checking frequency can be changed, and its value is in Hz.
 // For the moment it is calculated as Distance = speed * time.
@@ -50,8 +33,8 @@ geometry_msgs::Twist getTwist(const geometry_msgs::Vector3& linear_vector,
 void moveStraight(const ros::Publisher& velocity_publisher, const double speed,
                   const double desired_distance, const bool forward,
                   const int loop_frequency = 100) {
-    const auto& linear_vel = getVector3(forward ? speed : -1 * speed, 0, 0);
-    const auto& twist_msg = getTwist(linear_vel, getVector3(0, 0, 0));
+    const auto& linear_vel = geometry::getVector3(forward ? abs(speed) : -abs(speed), 0, 0);
+    const auto& twist_msg = geometry::getTwist(linear_vel, geometry::getVector3(0, 0, 0));
 
     double initial_time = ros::Time::now().toSec();
     double traveled_distance = 0;
