@@ -5,11 +5,11 @@
  */
 #include <sstream>
 
+#include "geometry_msgs/Twist.h"
 #include "ros/ros.h"
+#include "rumba_turtle/movement.h"
 #include "std_msgs/String.h"
 #include "turtlesim/Pose.h"
-#include "geometry_msgs/Twist.h"
-#include "rumba_turtle/movement.h"
 
 ros::Publisher velocity_publisher;
 ros::Subscriber pose_subscriber;
@@ -44,8 +44,10 @@ int main(int argc, char** argv) {
         ros::spinOnce();
 
         ROS_INFO("[Publisher] I wrote something");
-        movement::moveStraight(pub, 1, 5, direction);
+        movement::moveStraight(pub, 1, 3, direction);
         direction = !direction;
+
+        movement::rotate(pub, 0.5, movement::degrees2radians(90), true);
 
         ros::spinOnce();
         loop_rate.sleep();

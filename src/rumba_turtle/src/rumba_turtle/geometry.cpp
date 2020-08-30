@@ -21,4 +21,11 @@ geometry_msgs::Twist getTwist(const geometry_msgs::Vector3& linear_vector,
     return twist;
 }
 
+geometry_msgs::Twist getTwist(const double linear_x, const double linear_y,
+                              const double linear_z, const double angular_x,
+                              const double angular_y, const double angular_z) {
+    return getTwist(getVector3(linear_x, linear_y, linear_z),
+                    getVector3(angular_x, angular_y, angular_z));
+}
+
 };  // namespace geometry
