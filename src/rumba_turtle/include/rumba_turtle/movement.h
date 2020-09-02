@@ -49,6 +49,8 @@ bool withinRange(const double delta_x, const double delta_y, const double distan
 void goToGoal(const ros::Publisher& velocity_publisher, const turtlesim::Pose& goal_pose,
               const double distance_tolerance, const int loop_frequency);
 
+// Starting in the bottom left corner, goes throughout the whole screen "cleaning"
+// its way going on a zig-zag fashion.
 void gridClean(const ros::Publisher& velocity_publisher, const int loop_frequency);
 
 // Starting in the middle, it "cleans" most of the screen, going in an outward spiral

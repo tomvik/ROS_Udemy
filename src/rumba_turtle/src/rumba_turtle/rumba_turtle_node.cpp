@@ -33,7 +33,8 @@ int main(int argc, char** argv) {
     std::vector<std::vector<double>> poses{{1, 1, 0}, {9, 9, 0}, {9, 1, 0}, {1, 10, 0}, {5, 5, 0}};
     int index = 0;
 
-    movement::spiralClean(pub);
+    movement::gridClean(pub, kMoveRateFrequency);
+    // movement::spiralClean(pub);
 
     /*
 

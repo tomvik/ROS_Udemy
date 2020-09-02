@@ -102,7 +102,7 @@ void goToGoal(const ros::Publisher& velocity_publisher, const turtlesim::Pose& g
               const double distance_tolerance, const int loop_frequency) {
     const double max_linear_vel = 8;
     const double min_linear_vel = 0.3;
-    const double max_angular_vel = 12;
+    const double max_angular_vel = 18;
     const double kPLinear = max_linear_vel / x_max;
     const double kPAngular = max_angular_vel / PI;
 
@@ -132,6 +132,21 @@ void goToGoal(const ros::Publisher& velocity_publisher, const turtlesim::Pose& g
         ros::spinOnce();
     } while (!withinRange(delta_x, delta_y, distance_tolerance));
     velocity_publisher.publish(geometry::getTwist());
+}
+
+void gridClean(const ros::Publisher& velocity_publisher, const int loop_frequency) {
+    const std::vector<std::vector<double>> positions{
+        {{1, 1, 0},  {10, 1, 0}, {10, 2, 0}, {1, 2, 0},  {1, 3, 0},   {10, 3, 0}, {10, 4, 0},
+         {1, 4, 0},  {1, 5, 0},  {10, 5, 0}, {10, 6, 0}, {1, 6, 0},   {1, 7, 0},  {10, 7, 0},
+         {10, 8, 0}, {1, 8, 0},  {1, 9, 0},  {10, 9, 0}, {10, 10, 0}, {1, 10, 0}}};
+    turtlesim::Pose pose;
+    for (int i = 0; i < positions.size(); ++i) {
+        pose.x = positions[i][0];
+        pose.y = positions[i][1];
+        pose.theta = positions[i][2];
+
+        goToGoal(velocity_publisher, pose, 0.5, loop_frequency);
+    }
 }
 
 void spiralClean(const ros::Publisher& velocity_publisher) {
