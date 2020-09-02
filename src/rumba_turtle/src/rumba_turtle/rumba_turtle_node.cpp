@@ -13,8 +13,8 @@
 
 const char* const kSubscriberTopic = "/turtle1/pose";
 const char* const kPublisherTopic = "/turtle1/cmd_vel";
-const int kQueueSize = 1000;
-const int kMoveRateFrequency = 100;
+constexpr int kQueueSize = 1000;
+constexpr int kMoveRateFrequency = 100;
 
 int main(int argc, char** argv) {
     // Initiate a new ROS node named "listener"
@@ -33,6 +33,10 @@ int main(int argc, char** argv) {
     std::vector<std::vector<double>> poses{{1, 1, 0}, {9, 9, 0}, {9, 1, 0}, {1, 10, 0}, {5, 5, 0}};
     int index = 0;
 
+    movement::spiralClean(pub);
+
+    /*
+
     while (ros::ok() && index < poses.size()) {
         ros::spinOnce();
 
@@ -47,6 +51,7 @@ int main(int argc, char** argv) {
         ros::spinOnce();
         loop_rate.sleep();
     }
+    */
 
     return 0;
 }

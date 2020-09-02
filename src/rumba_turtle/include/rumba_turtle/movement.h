@@ -48,8 +48,12 @@ bool withinRange(const double delta_x, const double delta_y, const double distan
 // controller for the velocity and turn.
 void goToGoal(const ros::Publisher& velocity_publisher, const turtlesim::Pose& goal_pose,
               const double distance_tolerance, const int loop_frequency);
-void gridClean();
-void spiralClean();
+
+void gridClean(const ros::Publisher& velocity_publisher, const int loop_frequency);
+
+// Starting in the middle, it "cleans" most of the screen, going in an outward spiral
+// ever increasing until it is near the edge.
+void spiralClean(const ros::Publisher& velocity_publisher);
 
 };  // namespace movement
 

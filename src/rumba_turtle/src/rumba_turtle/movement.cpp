@@ -106,10 +106,12 @@ void goToGoal(const ros::Publisher& velocity_publisher, const turtlesim::Pose& g
     const double kPLinear = max_linear_vel / x_max;
     const double kPAngular = max_angular_vel / PI;
 
+    double delta_x, delta_y;
+
     ros::Rate loop_rate(loop_frequency);
     do {
-        const double delta_x = goal_pose.x - turtle_pose.x;
-        const double delta_y = goal_pose.y - turtle_pose.y;
+        delta_x = goal_pose.x - turtle_pose.x;
+        delta_y = goal_pose.y - turtle_pose.y;
 
         const double delta_angle =
             properRad(atan2(delta_y, delta_x) - turtle_pose.theta) * kPAngular;
@@ -130,6 +132,30 @@ void goToGoal(const ros::Publisher& velocity_publisher, const turtlesim::Pose& g
         ros::spinOnce();
     } while (!withinRange(delta_x, delta_y, distance_tolerance));
     velocity_publisher.publish(geometry::getTwist());
+}
+
+void spiralClean(const ros::Publisher& velocity_publisher) {
+    const double angular_speed = 4;
+
+    const double linear_increment = 0.5;
+    double linear_speed = 0.5;
+
+    const double final_x = 9, final_y = 9, final_tolerance = 1;
+    double delta_x, delta_y;
+
+    ros::Rate loop_rate(1);
+    do {
+        delta_x = final_x - turtle_pose.x;
+        delta_y = final_y - turtle_pose.y;
+
+        const auto& twist_msg = geometry::getTwist(linear_speed, 0, 0, 0, 0, angular_speed);
+        linear_speed += linear_increment;
+
+        velocity_publisher.publish(twist_msg);
+        loop_rate.sleep();
+
+        ros::spinOnce();
+    } while (!withinRange(delta_x, delta_y, final_tolerance));
 }
 
 };  // namespace movement
