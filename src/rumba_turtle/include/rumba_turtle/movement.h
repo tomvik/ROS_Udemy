@@ -40,7 +40,14 @@ void rotateAbsolute(const ros::Publisher& velocity_publisher, const double angul
 
 // Prints the info message and updates the turtle_pose variable.
 void poseCallback(const turtlesim::Pose::ConstPtr& pose_message);
-void moveGoal(turtlesim::Pose goal_pose, double distance_tolerance);
+
+// Returns true if the euclidean distance is smaller than the tolerance distance.
+bool withinRange(const double delta_x, const double delta_y, const double distance_tolerance);
+
+// Moves the turtle within the tolerance distance of the goal pose, while using a K
+// controller for the velocity and turn.
+void goToGoal(const ros::Publisher& velocity_publisher, const turtlesim::Pose& goal_pose,
+              const double distance_tolerance, const int loop_frequency);
 void gridClean();
 void spiralClean();
 

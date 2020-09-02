@@ -28,29 +28,21 @@ int main(int argc, char** argv) {
     ros::Rate loop_rate(0.25);
 
     bool direction = true;
-    while (ros::ok()) {
+
+    turtlesim::Pose goal_pose;
+    std::vector<std::vector<double>> poses{{1, 1, 0}, {9, 9, 0}, {9, 1, 0}, {1, 10, 0}, {5, 5, 0}};
+    int index = 0;
+
+    while (ros::ok() && index < poses.size()) {
         ros::spinOnce();
 
         ROS_INFO("[Publisher] I wrote something");
-        movement::moveStraight(pub, 1, 3, direction);
-        direction = !direction;
+        goal_pose.x = poses[index][0];
+        goal_pose.y = poses[index][1];
+        goal_pose.theta = poses[index][2];
+        ++index;
 
-        movement::rotateAbsolute(pub, 1, movement::deg2Rad(90));
-        movement::moveStraight(pub, 1, 3, true);
-        movement::rotateAbsolute(pub, 1, movement::deg2Rad(180));
-        movement::moveStraight(pub, 1, 3, true);
-        movement::rotateAbsolute(pub, 1, movement::deg2Rad(270));
-        movement::moveStraight(pub, 1, 3, true);
-        movement::rotateAbsolute(pub, 1, movement::deg2Rad(0));
-        movement::moveStraight(pub, 1, 3, true);
-        movement::rotateAbsolute(pub, 1, movement::deg2Rad(270));
-        movement::moveStraight(pub, 1, 3, true);
-        movement::rotateAbsolute(pub, 1, movement::deg2Rad(180));
-        movement::moveStraight(pub, 1, 3, true);
-        movement::rotateAbsolute(pub, 1, movement::deg2Rad(90));
-        movement::moveStraight(pub, 1, 3, true);
-        movement::rotateAbsolute(pub, 1, movement::deg2Rad(0));
-        movement::moveStraight(pub, 1, 3, true);
+        movement::goToGoal(pub, goal_pose, 0.3, kMoveRateFrequency);
 
         ros::spinOnce();
         loop_rate.sleep();
